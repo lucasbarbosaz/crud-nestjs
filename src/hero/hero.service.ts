@@ -15,4 +15,19 @@ export class HeroService {
   async findAll() {
     return this.prisma.hero.findMany();
   }
+
+  async update(id: number, data: HeroDto) {
+    const heroExists = await this.prisma.hero.findUnique({
+      where: { id },
+    })
+
+    if (!heroExists) {
+      throw new Error('Hero not found');
+    }
+
+    await this.prisma.hero.update({
+      where: { id },
+      data,
+    });
+  }
 }
