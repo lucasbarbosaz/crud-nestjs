@@ -4,9 +4,9 @@ import { PrismaService } from 'src/database/prisma.service';
 
 @Injectable() // isso é um decorator que marca a classe como injetável
 export class HeroService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  async create (data: HeroDto) {
+  async create(data: HeroDto) {
     const hero = await this.prisma.hero.create({ data });
 
     return hero;
@@ -25,9 +25,23 @@ export class HeroService {
       throw new Error('Hero not found');
     }
 
-    await this.prisma.hero.update({
+    return await this.prisma.hero.update({
       where: { id },
       data,
     });
+  }
+
+  async delete(id: number) {
+    const heroExists = await this.prisma.hero.findUnique({
+      where: { id },
+    })
+
+    if (!heroExists) {
+      throw new Error('Hero not found');
+    }
+
+    return await this.prisma.hero.delete({
+      where: { id },
+    })
   }
 }
