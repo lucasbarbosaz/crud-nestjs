@@ -11,4 +11,8 @@ export class HeroService {
 
     return hero;
   }
+
+  async findAll() {
+    return this.prisma.hero.findMany();
+  }
 }

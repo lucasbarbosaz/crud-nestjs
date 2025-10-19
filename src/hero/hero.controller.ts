@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import type { HeroDto } from './dto/hero.dto';
 import { HeroService } from './hero.service';
 
@@ -9,5 +9,10 @@ export class HeroController {
   @Post()
   async create(@Body() data: HeroDto) {
     return this.heroService.create(data);
+  }
+
+  @Get()
+  async findAll() {
+    return this.heroService.findAll();
   }
 }
