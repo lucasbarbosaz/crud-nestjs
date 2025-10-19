@@ -44,4 +44,16 @@ export class HeroService {
       where: { id },
     })
   }
+
+  async getById(id: number) {
+    const heroExists = await this.prisma.hero.findUnique({
+      where: { id },
+    })
+
+    if (!heroExists) {
+      throw new Error('Hero not found');
+    }
+
+    return heroExists;
+  }
 }

@@ -25,4 +25,9 @@ export class HeroController {
   async delete(@Param("id") id: number) {
     return this.heroService.delete(Number(id));
   }
+
+  @Get(":id")
+  async getById(@Param("id") id: number) {
+    return this.heroService.getById(Number(id));
+  }
 }
